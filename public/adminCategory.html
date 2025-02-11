@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Admin Dashboard</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .dashboard-card {
+        margin: 20px;
+      }
+      .card-header {
+        background-color: #007bff;
+        color: white;
+      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 200px;
+        background-color: #343a40;
+        padding-top: 20px;
+        transition: width 0.3s ease;
+      }
+      .sidebar a {
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        display: block;
+        font-size: 18px;
+      }
+      .sidebar a:hover {
+        background-color: #007bff;
+      }
+      .sidebar.collapsed {
+        width: 0px;
+      }
+      .sidebar.collapsed a {
+        font-size: 14px;
+        text-align: center;
+      }
+      .sidebar-toggle {
+        position: absolute;
+        top: 20px;
+        right: -65px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #343a40;
+      }
+      .content {
+        margin-left: 250px;
+        padding: 20px;
+        transition: margin-left 0.3s ease;
+      }
+      .content.expanded {
+        margin-left: 60px; /* Adjust this width to match the collapsed sidebar */
+      }
+    </style>
+  </head>
+  <body>
+
+
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="./dashboard.html">Admin Dashboard</a>
+      </div>
+    </nav>
+
+    <!-- Section-->
+    <section class="py-3">
+    
+      <!-- Button -->
+      <div style="margin-left: 155px;">
+        <a class="btn btn-primary" href="addCategory.html">
+          Add Categories
+        </a>
+      </div>
+      <div class="container px-4 px-lg-5 mt-3">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <!-- Category loop inserted here -->
+        </div>
+      </div>
+    </section>
+    <!-- Footer-->
+    <footer class="py-4 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Your Website 2025
+        </p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- fetch category -->
+    <script>
+      window.onload = function () {
+        // Fetch categories and display them
+        fetch("/get-admin-category")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              const categoryContainer = document.querySelector(".row");
+              categoryContainer.innerHTML = ""; // Clear any previous categories
+
+              // foreach loop over the fetched categories and create category cards
+              data.data.forEach((category) => {
+                // console.log(category);
+                const imageUrl = category.cate_image
+                  ? "http://localhost:8080/" + category.cate_image
+                  : "default-image.jpg";
+
+                const categoryCard = `
+                  <div class="col mb-5">
+                    <div class="card">
+                      <img class="card-img-top" src="${imageUrl}"/>
+                      <div class="card-body p-4">
+                        <div class="text-center">
+                          <h5 class="fw-bolder">${category.cate_name}</h5>
+                          <a href="updateCategory.html?categoryId=${category.cate_id}" class="btn btn-primary">Update</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                categoryContainer.innerHTML += categoryCard;
+              });
+            } else {
+              console.error("Error fetching categories:", data.errors);
+              alert("Failed to load categories.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching categories:", error);
+            alert("Failed to load categories.");
+          });
+      };
+    </script>
+  </body>
+</html>

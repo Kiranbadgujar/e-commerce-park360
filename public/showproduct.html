@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Online Shopping</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="./index.html">Online Shopping</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4"></ul>
+          <form class="d-flex" id="navbarActions">
+            <!-- Default register button -->
+            <a
+              class="btn btn-outline-dark"
+              href="./login.html"
+              id="registerButton"
+              >Login</a
+            >
+
+            <!-- User dropdown (hidden by default) -->
+            <div class="dropdown d-none" id="userDropdown">
+              <button
+                class="btn btn-outline-dark dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                User
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li>
+                  <a class="dropdown-item" href="profile.html">Profile</a>
+                </li>
+                <li><button class="dropdown-item" id="logoutButton">Logout</button></li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Section-->
+    <section class="py-5">
+      <div class="container px-4 px-lg-5">
+        <!-- Filter Section -->
+        <div class="d-flex flex-wrap mb-4">
+          <div class="me-3">
+            <label for="colorFilter" class="form-label">Filter by Color</label>
+            <select id="colorFilter" class="form-select">
+              <option value="">Select Color</option>
+              <option value="Red">Red</option>
+              <option value="Blue">Blue</option>
+              <option value="Black">Black</option>
+              <option value="Green">Green</option>
+            </select>
+          </div>
+          <div class="me-3">
+            <label for="sizeFilter" class="form-label">Filter by Size</label>
+            <select id="sizeFilter" class="form-select">
+              <option value="">Select Size</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="8GB">8GB</option>
+              <option value="16GB">16GB</option>
+              <option value="32GB">32GB</option>
+              <option value="64GB">64GB</option>
+            </select>
+          </div>
+          <div class="me-3">
+            <label for="sortFilter" class="form-label">Sort By</label>
+            <select id="sortFilter" class="form-select">
+              <option value="default">Default</option>
+              <option value="price_asc">Price (Low to High)</option>
+              <option value="price_desc">Price (High to Low)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="container px-4 px-lg-5 mt-5">
+        <div
+          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+        ><!-- product loop inserted here --></div>
+      </div>
+      <!-- Pagination -->
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center" id="paginationContainer">
+          <!-- Pagination links will be injected here -->
+        </ul>
+      </nav>
+    </section>
+    <!-- Footer-->
+    <footer class="py-3 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Your Website 2025
+        </p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- show product-->
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- show product-->
+        <script>
+          let currentPage = 1; // Initial page
+          const productsPerPage = 8; // Number of products per page
+        
+          function fetchProducts() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryId = urlParams.get("categoryId");
+        
+            // Get selected filter and sort values
+            const color = document.getElementById("colorFilter").value;
+            const size = document.getElementById("sizeFilter").value;
+            const sort = document.getElementById("sortFilter").value;
+        
+            if (categoryId) {
+              let url = `http://localhost:8080/show-products/${categoryId}?page=${currentPage}&limit=${productsPerPage}`;
+        
+              // Add filters and sort to the URL
+              if (color) url += `&color=${color}`;
+              if (size) url += `&size=${size}`;
+              if (sort) url += `&sort=${sort}`;
+        
+              // Fetch products
+              fetch(url)
+                .then(response => response.json())  // Convert response to JSON
+                .then(data => {
+                  if (data) {
+                    const productContainer = document.querySelector(".row"); // Product grid container
+                    productContainer.innerHTML = ""; // Clear existing content
+        
+                    // Loop through products and generate the cards
+                    data.data.forEach((product) => {
+                      const imageUrl = "http://localhost:8080/" + product.vari_image;
+                      const productCard = `
+                        <div class="col mb-5">
+                          <div class="card h-100">
+                            <div class="card-body p-4">
+                              <img class="card-img-top" src="${imageUrl}" />
+                              <div class="text-center">
+                                <h5 class="fw-bolder">${product.pro_name}</h5>
+                                <p>Price: ${product.vari_price}</p>
+                                <p>Color: ${product.vari_color}</p>
+                                <p>Size: ${product.vari_size}</p>
+                                <p>Quantity: ${product.vari_quantity} left</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      `;
+                      productContainer.innerHTML += productCard;
+                    });
+        
+                    // Call function to update pagination UI
+                    updatePagination(data.totalProducts);
+                  } else {
+                    console.error("Error fetching products:", data.errors);
+                  }
+                })
+                .catch(error => {
+                  console.error("Error fetching products:", error);
+                });
+            }
+          }
+        
+          // Pagination logic
+          function updatePagination(totalProducts) {
+            const totalPages = Math.ceil(totalProducts / productsPerPage); // Calculate total pages
+            const paginationContainer = document.getElementById("paginationContainer");
+        
+            let paginationHTML = "";
+        
+            // Page numbers
+            for (let page = 1; page <= totalPages; page++) {
+              paginationHTML += `<li class="page-item ${
+                page === currentPage ? "active" : ""
+              }">
+                                 <a class="page-link" href="#" onclick="goToPage(${page})">${page}</a>
+                               </li>`;
+            }
+        
+            paginationContainer.innerHTML = paginationHTML;
+          }
+        
+          function goToPage(page) {
+            if (page < 1) page = 1;
+            currentPage = page;
+            fetchProducts(); // Fetch the products for the new page
+          }
+        
+          // Initial page load
+          window.onload = function () {
+            fetchProducts();
+            updateAuthUI(); // Call the function to update the UI based on authentication state
+          };
+        
+          // Event listeners for filtering and sorting
+          document.getElementById("colorFilter").addEventListener("change", () => {
+            currentPage = 1; // Reset to page 1 when filter is changed
+            fetchProducts();
+          });
+          document.getElementById("sizeFilter").addEventListener("change", () => {
+            currentPage = 1;
+            fetchProducts();
+          });
+          document.getElementById("sortFilter").addEventListener("change", () => {
+            currentPage = 1;
+            fetchProducts();
+          });
+        </script>        
+    
+        <!-- Authentication UI Update Script -->
+        <script>
+          function updateAuthUI() {
+            const authToken = localStorage.getItem("loggedIn");
+            const registerButton = document.getElementById("registerButton");
+            const userDropdown = document.getElementById("userDropdown");
+    
+            if (authToken) {
+              // Hide the register button and show the user dropdown
+              registerButton.classList.add("d-none");
+              userDropdown.classList.remove("d-none");
+    
+              const userName = localStorage.getItem("userName");
+              document.getElementById(
+                "dropdownMenuButton"
+              ).textContent = `Hello`;
+            } else {
+              // If the user is not logged in, ensure Register button is visible
+              registerButton.classList.remove("d-none");
+              userDropdown.classList.add("d-none");
+            }
+          }
+        </script>
+        <script>
+          document.getElementById("logoutButton").addEventListener("click", () => {
+            localStorage.removeItem("authToken"); // Remove auth token
+            localStorage.removeItem("loggedIn"); // Remove user name
+            localStorage.removeItem("userName"); // Remove user name
+            window.location.href = "/login.html"; // Redirect to login page
+          });
+        </script>
+      </body>
+    </html>
+    
+  </body>
+</html>
+
+
+<!-- 
+<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+  <div class="text-center">
+    <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
+  </div>
+</div> -->

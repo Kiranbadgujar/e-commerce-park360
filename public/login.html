@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Login - Online Shopping</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="./index.html">Online Shopping</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4"></ul>
+          <form class="d-flex" id="navbarActions">
+            <!-- Default register button -->
+            <a
+              class="btn btn-outline-dark"
+              href="./register.html"
+              id="registerButton"
+              >Register</a
+            >
+
+            <!-- User dropdown (hidden by default) -->
+            <div class="dropdown d-none" id="userDropdown">
+              <button
+                class="btn btn-outline-dark dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                User
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li>
+                  <a class="dropdown-item" href="profile.html">Profile</a>
+                </li>
+                <li>
+                  <button class="dropdown-item" id="logoutButton">
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Section-->
+    <section>
+      <div class="container my-5">
+        <div class="container-fluid h-custom">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col-md-9 col-lg-6 col-xl-5">
+              <img src="/removebg.png" class="img-fluid" alt="Sample image" />
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+              <form id="loginForm">
+                <div
+                  class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start"
+                >
+                  <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-floating mx-1"
+                  >
+                    <i class="fab fa-facebook-f"></i>
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-floating mx-1"
+                  >
+                    <i class="fab fa-twitter"></i>
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-floating mx-1"
+                  >
+                    <i class="fab fa-linkedin-in"></i>
+                  </button>
+                </div>
+
+                <div class="divider d-flex align-items-center my-4">
+                  <p class="text-center fw-bold mx-3 mb-0">Or</p>
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="emailID">Email</label>
+                  <input
+                    type="email"
+                    id="emailID"
+                    name="email"
+                    class="form-control form-control-lg"
+                  />
+                  <div id="emailError" class="invalid-feedback">
+                    Please enter a valid email address.
+                  </div>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-3">
+                  <label class="form-label" for="passID">Password</label>
+                  <input
+                    type="password"
+                    id="passID"
+                    name="password"
+                    class="form-control form-control-lg"
+                    minlength="6"
+                  />
+                  <div id="passwordError" class="invalid-feedback">
+                    Password must be at least 6 characters long.
+                  </div>
+                </div>
+
+                <div class="text-center text-lg-start mt-4 pt-2">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem"
+                  >
+                    Login
+                  </button>
+                  <p class="small fw-bold mt-2 pt-1 mb-0">
+                    Don't have an account?
+                    <a href="./register.html" class="link-danger">Register</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer-->
+    <footer class="py-3 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Your Website 2025
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core theme JS-->
+    <script>
+      window.onload = function () {
+        updateAuthUI(); // Update UI when the page is loaded or refreshed
+      };
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          // Reset error messages
+          document.getElementById("emailError").style.display = "none";
+          document.getElementById("passwordError").style.display = "none";
+
+          var email = document.getElementById("emailID").value;
+          var password = document.getElementById("passID").value;
+
+          var valid = true;
+
+          // Email validation
+          if (!email || !/\S+@\S+\.\S+/.test(email)) {
+            document.getElementById("emailID").classList.add("is-invalid");
+            document.getElementById("emailError").style.display = "block";
+            valid = false;
+          } else {
+            document.getElementById("emailID").classList.remove("is-invalid");
+          }
+
+          // Password validation
+          if (password.length < 6) {
+            document.getElementById("passID").classList.add("is-invalid");
+            document.getElementById("passwordError").style.display = "block";
+            valid = false;
+          } else {
+            document.getElementById("passID").classList.remove("is-invalid");
+          }
+
+          if (valid) {
+            const userData = {
+              email: email,
+              password: password,
+            };
+
+            fetch("/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(userData),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.token) {
+                  localStorage.setItem("authToken", data.token);
+                  localStorage.setItem("loggedIn", "true");
+                  localStorage.setItem("userName",data.first_name);
+                  updateAuthUI(); 
+                  alert("Login successful!");
+                  window.location.href = "/index.html";
+                } else {
+                  alert(data.message || "Login failed!");
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+                alert("Something went wrong. Please try again.");
+              });
+          }
+        });
+    </script>
+    <!-- logout -->
+    <script>
+      document.getElementById("logoutButton").addEventListener("click", () => {
+        localStorage.removeItem("authToken"); // Remove auth token
+        localStorage.removeItem("loggedIn"); // Remove user name
+        localStorage.removeItem("userName"); // Remove user name
+        window.location.href = "/login.html"; // Redirect to login page
+      });
+    </script>
+    <script>
+      function updateAuthUI() {
+        const authToken = localStorage.getItem("loggedIn");
+        const registerButton = document.getElementById("registerButton");
+        const userDropdown = document.getElementById("userDropdown");
+
+        if (authToken) {
+          // Hide the register button and show the user dropdown
+          registerButton.classList.add("d-none");
+          userDropdown.classList.remove("d-none");
+
+          const userName = localStorage.getItem("userName");
+          document.getElementById(
+            "dropdownMenuButton"
+          ).textContent = `Hello`;
+        } else {
+          // If the user is not logged in, ensure Register button is visible
+          registerButton.classList.remove("d-none");
+          userDropdown.classList.add("d-none");
+        }
+      }
+    </script>
+  </body>
+</html>

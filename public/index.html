@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Online Shopping</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="./index.html">Online Shopping</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4"></ul>
+          <form class="d-flex" id="navbarActions">
+            <!-- Default register button -->
+            <a
+              class="btn btn-outline-dark"
+              href="./login.html"
+              id="registerButton"
+              >Login</a
+            >
+
+            <!-- User dropdown (hidden by default) -->
+            <div class="dropdown d-none" id="userDropdown">
+              <button
+                class="btn btn-outline-dark dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-user"></i> User
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li>
+                  <a class="dropdown-item" href="profile.html">Profile</a>
+                </li>
+                <li>
+                  <button class="dropdown-item" id="logoutButton">
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+      <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder">Shop in style</h1>
+          <p class="lead fw-normal text-white-50 mb-0">
+            With this Online Shopping shop
+          </p>
+        </div>
+      </div>
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+      <div class="container px-4 px-lg-5">
+        <div class="text-center">
+          <h1 class="display-4 fw-bolder">Shop By Category</h1>
+          <p class="lead fw-normal text-white-50 mb-0">
+            With this shop homepage template
+          </p>
+        </div>
+      </div>
+      <div class="container px-4 px-lg-5 mt-2">
+        <div
+          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+        >
+          <!-- Category loop inserted here -->
+        </div>
+      </div>
+    </section>
+    <!-- Footer-->
+    <footer class="py-4 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Your Website 2025
+        </p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- fetch category -->
+    <script>
+      window.onload = function () {
+        // User login handling
+        const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+        const registerButton = document.getElementById("registerButton");
+        const userDropdown = document.getElementById("userDropdown");
+
+        if (isLoggedIn) {
+          // Hide the register button and show the user dropdown
+          registerButton.classList.add("d-none");
+          userDropdown.classList.remove("d-none");
+
+          const userName = localStorage.getItem("userName");
+          document.getElementById(
+            "dropdownMenuButton"
+          ).textContent = `Hello`;
+        } else {
+          // If the user is not logged in, ensure Register button is visible
+          registerButton.classList.remove("d-none");
+          userDropdown.classList.add("d-none");
+        }
+
+        // Fetch categories and display them
+        fetch("/get-category")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              const categoryContainer = document.querySelector(".row");
+              categoryContainer.innerHTML = ""; // Clear any previous categories
+
+              // foreach loop over the fetched categories and create category cards
+              data.data.forEach((category) => {
+                // console.log(category);
+                const imageUrl = category.cate_image
+                  ? "http://localhost:8080/" + category.cate_image : "default-image.jpg";
+
+                const categoryCard = `
+                  <div class="col mb-5">
+                    <div class="card">
+                      <img class="card-img-top" src="${imageUrl}"/>
+                      <div class="card-body p-4">
+                        <div class="text-center">
+                          <h5 class="fw-bolder">${category.cate_name}</h5>
+                          <a href="showproduct.html?categoryId=${category.cate_id}" class="btn btn-outline-dark">Explore Now</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                categoryContainer.innerHTML += categoryCard;
+              });
+            } else {
+              console.error("Error fetching categories:", data.errors);
+              alert("Failed to load categories.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching categories:", error);
+            alert("Failed to load categories.");
+          });
+      };
+    </script>
+
+    <!-- logut -->
+    <script>
+      document.getElementById("logoutButton").addEventListener("click", () => {
+        localStorage.removeItem("authToken"); // Remove auth token
+        localStorage.removeItem("loggedIn"); // Remove user name
+        localStorage.removeItem("userName"); // Remove user name
+        window.location.href = "/login.html"; // Redirect to login page
+      });
+    </script>
+  </body>
+</html>

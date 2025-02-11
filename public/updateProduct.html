@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="Admin Dashboard" />
+    <meta name="author" content="Your Name" />
+    <title>Admin Dashboard</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      #active {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: border-color 0.3s ease;
+      }
+
+      #active:focus {
+        border-color: #007bff; /* Change border color when focused */
+        outline: none;
+      }
+
+      #active option {
+        padding: 10px;
+        font-size: 1rem;
+      }
+
+      #active option:hover {
+        background-color: #f0f0f0;
+      }
+
+      .col-lg-6 {
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="./dashboard.html">Admin Dashboard</a>
+      </div>
+    </nav>
+
+    <!-- Section-->
+    <section>
+      <div class="container my-5">
+        <div class="container-fluid h-custom">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col-md-9 col-lg-6 col-xl-5">
+              <img
+                src="/1678633884531.jpg"
+                class="img-fluid"
+                alt="Sample image"
+              />
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+              <form id="addCategory" enctype="multipart/form-data">
+                <!--  -->
+                <div class="row">
+                  <div class="col-lg-6 form-outline mb-4">
+                    <label class="form-label" for="cate_name"
+                      >Product ID</label
+                    >
+                    <input
+                      type="text"
+                      id="pro_id"
+                      name="pro_id"
+                      class="form-control form-control-lg"
+                      readonly
+                    />
+                  </div>
+
+                  <div class="col-lg-6 form-outline mb-4">
+                    <label class="form-label" for="cate_name">ACTIVE</label>
+                    <select name="active" id="active">
+                      <option value="1">1</option>
+                      <option value="0">0</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Category NAME -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="cate_name"
+                    >Product Name</label
+                  >
+                  <input
+                    type="text"
+                    id="pro_name"
+                    name="pro_name"
+                    class="form-control form-control-lg"
+                  />
+                  <div id="nameError" class="text-danger" style="display: none">
+                    Product Name Cannot be Empty.
+                  </div>
+                </div>
+
+                <!-- Category Description -->
+                <div class="form-outline mb-3">
+                  <label class="form-label" for="cate_description"
+                    >Product Description</label
+                  >
+                  <input
+                    type="text"
+                    id="pro_description"
+                    name="pro_description"
+                    class="form-control form-control-lg"
+                  />
+                  <div id="descError" class="text-danger" style="display: none">
+                    Product Description Cannot be Empty.
+                  </div>
+                </div>
+                <!-- button -->
+                <div class="row">
+                  <div class="col-md-6 text-center text-lg-start mt-4 pt-2">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-lg"
+                      style="padding-left: 2.5rem; padding-right: 2.5rem"
+                      id="submitBtn"
+                    >
+                      Update
+                    </button>
+                  </div>
+                  <div class="col-md-6 text-center text-lg-start mt-4 pt-2">
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-lg"
+                      style="padding-left: 2.5rem; padding-right: 2.5rem"
+                      id="deleteBtn"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <div
+                id="error-message"
+                class="text-danger"
+                style="display: none"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer-->
+    <footer class="py-3 bg-dark" style="margin-top: 45px">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Your Website 2025
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ADD CATEGORY -->
+    <script>
+      const productId = new URLSearchParams(window.location.search).get(
+        "productId"
+      );
+      // Fetch product
+      fetch(`/get-single-product/${productId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          const category = data.data[0];
+          if (category) {
+            document.getElementById("pro_name").value = category.pro_name;
+            document.getElementById("pro_description").value =
+              category.pro_description;
+            document.getElementById("pro_id").value = category.pro_id;
+            document.getElementById("active").value = category.is_active;
+          } else {
+            throw new Error("Category not found");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching category data:", error);
+          document.getElementById("error-message").textContent =
+            "Error fetching category data: " + error.message;
+          document.getElementById("error-message").style.display = "block";
+        });
+
+      // update product  
+      document
+        .getElementById("submitBtn")
+        .addEventListener("click", function () {
+          const pro_name = document.getElementById("pro_name").value;
+          const pro_description = document.getElementById("pro_description").value;
+          let isValid = true;
+          // console.log(pro_name);
+          // console.log(pro_description);
+
+          // Category Name validation
+          if (!pro_name.trim()) {
+            document.getElementById("nameError").style.display = "block";
+            isValid = false;
+          } else {
+            document.getElementById("nameError").style.display = "none";
+          }
+
+          // Category Description validation
+          if (!pro_description.trim()) {
+            document.getElementById("descError").style.display = "block";
+            isValid = false;
+          } else {
+            document.getElementById("descError").style.display = "none";
+          }
+
+          if (isValid) {
+            // Prepare the data to be sent to the server
+            const data = {
+              name: pro_name,
+              description: pro_description,
+            };
+
+            // Send a PUT request to update the category
+            fetch(`/update-product/${productId}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+              },
+              body: JSON.stringify(data),
+            })
+              .then((response) => response.json())
+              .then((result) => {
+                if (result.status === 200) {
+                  alert("Category updated successfully");
+                  window.location.href = "./adminProduct.html";
+                } else {
+                  alert(`Error: ${result.message}`);
+                }
+              })
+              .catch((error) => {
+                console.error("Error updating category:", error);
+                alert("There was an error updating the category");
+              });
+          }
+        });
+
+      // is_active
+      deleteBtn.addEventListener("click", function () {
+
+        const isActiveValue = document.getElementById("active").value;
+        console.log(isActiveValue);
+
+        const data = {
+          activate: isActiveValue, 
+        };
+
+        // delete
+        fetch(`/delete-product/${productId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert(data.message);
+            window.location.href = "./adminProduct.html";            
+          })
+          .catch((error) => {
+            console.error("Error deleting category:", error);
+            alert("Error deleting category.");
+          });
+      });
+    </script>
+  </body>
+</html>
