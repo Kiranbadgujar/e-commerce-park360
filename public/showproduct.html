@@ -138,7 +138,7 @@
           let currentPage = 1; // Initial page
           const productsPerPage = 8; // Number of products per page
         
-          function fetchProducts() {
+          async function fetchProducts() {
             const urlParams = new URLSearchParams(window.location.search);
             const categoryId = urlParams.get("categoryId");
         
@@ -155,45 +155,45 @@
               if (size) url += `&size=${size}`;
               if (sort) url += `&sort=${sort}`;
         
-              // Fetch products
-              fetch(url)
-                .then(response => response.json())  // Convert response to JSON
-                .then(data => {
-                  if (data) {
-                    const productContainer = document.querySelector(".row"); // Product grid container
-                    productContainer.innerHTML = ""; // Clear existing content
+              try {
+                // Fetch products using async/await
+                const response = await fetch(url);
+                const data = await response.json();
         
-                    // Loop through products and generate the cards
-                    data.data.forEach((product) => {
-                      const imageUrl = "http://localhost:8080/" + product.vari_image;
-                      const productCard = `
-                        <div class="col mb-5">
-                          <div class="card h-100">
-                            <div class="card-body p-4">
-                              <img class="card-img-top" src="${imageUrl}" />
-                              <div class="text-center">
-                                <h5 class="fw-bolder">${product.pro_name}</h5>
-                                <p>Price: ${product.vari_price}</p>
-                                <p>Color: ${product.vari_color}</p>
-                                <p>Size: ${product.vari_size}</p>
-                                <p>Quantity: ${product.vari_quantity} left</p>
-                              </div>
+                if (data) {
+                  const productContainer = document.querySelector(".row"); // Product grid container
+                  productContainer.innerHTML = ""; // Clear existing content
+        
+                  // Loop through products and generate the cards
+                  data.data.forEach((product) => {
+                    const imageUrl = "http://localhost:8080/" + product.vari_image;
+                    const productCard = `
+                      <div class="col mb-5">
+                        <div class="card h-100">
+                          <div class="card-body p-4">
+                            <img class="card-img-top" src="${imageUrl}" />
+                            <div class="text-center">
+                              <h5 class="fw-bolder">${product.pro_name}</h5>
+                              <p>Price: ${product.vari_price}</p>
+                              <p>Color: ${product.vari_color}</p>
+                              <p>Size: ${product.vari_size}</p>
+                              <p>Quantity: ${product.vari_quantity} left</p>
                             </div>
                           </div>
                         </div>
-                      `;
-                      productContainer.innerHTML += productCard;
-                    });
+                      </div>
+                    `;
+                    productContainer.innerHTML += productCard;
+                  });
         
-                    // Call function to update pagination UI
-                    updatePagination(data.totalProducts);
-                  } else {
-                    console.error("Error fetching products:", data.errors);
-                  }
-                })
-                .catch(error => {
-                  console.error("Error fetching products:", error);
-                });
+                  // Call function to update pagination UI
+                  updatePagination(data.totalProducts);
+                } else {
+                  console.error("Error fetching products:", data.errors);
+                }
+              } catch (error) {
+                console.error("Error fetching products:", error);
+              }
             }
           }
         
@@ -209,8 +209,8 @@
               paginationHTML += `<li class="page-item ${
                 page === currentPage ? "active" : ""
               }">
-                                 <a class="page-link" href="#" onclick="goToPage(${page})">${page}</a>
-                               </li>`;
+                                   <a class="page-link" href="#" onclick="goToPage(${page})">${page}</a>
+                                 </li>`;
             }
         
             paginationContainer.innerHTML = paginationHTML;
@@ -241,7 +241,7 @@
             currentPage = 1;
             fetchProducts();
           });
-        </script>        
+        </script>               
     
         <!-- Authentication UI Update Script -->
         <script>
@@ -279,11 +279,3 @@
     
   </body>
 </html>
-
-
-<!-- 
-<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-  <div class="text-center">
-    <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-  </div>
-</div> -->
