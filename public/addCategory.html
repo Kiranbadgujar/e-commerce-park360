@@ -126,7 +126,7 @@
     <script>
       document
         .getElementById("addCategory")
-        .addEventListener("submit", function (e) {
+        .addEventListener("submit", async function (e) {
           e.preventDefault(); // Prevent default form submission
     
           // Clear previous error messages
@@ -137,7 +137,7 @@
           // Get form data
           const categoryName = document.getElementById("cate_name").value;
           const categoryDescription = document.getElementById("cate_description").value;
-          const categoryImage = document.getElementById("file").files[0];    
+          const categoryImage = document.getElementById("file").files[0];
           let valid = true;
     
           // Category Name validation
@@ -173,33 +173,34 @@
           formData.append("name", categoryName);
           formData.append("description", categoryDescription);
           formData.append("file", categoryImage);
-          // console.log("Form data:", [...formData.entries()]);
     
-          // Fetch token from localStorage 
+          // Fetch token from localStorage
           const token = localStorage.getItem("authToken");
     
-          // Perform the fetch API request
-          fetch("/insert-category", {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`, 
-            },
-            body: formData, 
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.status === 200) {
-                alert("Category added successfully!");
-                window.location.href = "/adminCategory.html";
-              } else {
-                alert("Error: " + data.message);
-              }
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-              alert("Something went wrong, please try again.");
+          try {
+            // Perform the fetch API request
+            const response = await fetch("/insert-category", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData,
             });
+    
+            const data = await response.json();
+    
+            if (data.status === 200) {
+              alert("Category added successfully!");
+              window.location.href = "/adminCategory.html";
+            } else {
+              alert("Error: " + data.message);
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("Something went wrong, please try again.");
+          }
         });
-    </script>    
+    </script>
+        
   </body>
 </html>

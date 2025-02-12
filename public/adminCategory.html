@@ -111,47 +111,47 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- fetch category -->
     <script>
-      window.onload = function () {
-        // Fetch categories and display them
-        fetch("/get-admin-category")
-          .then((response) => response.json())
-          .then((data) => {
-            if (data) {
-              const categoryContainer = document.querySelector(".row");
-              categoryContainer.innerHTML = ""; // Clear any previous categories
-
-              // foreach loop over the fetched categories and create category cards
-              data.data.forEach((category) => {
-                // console.log(category);
-                const imageUrl = category.cate_image
-                  ? "http://localhost:8080/" + category.cate_image
-                  : "default-image.jpg";
-
-                const categoryCard = `
-                  <div class="col mb-5">
-                    <div class="card">
-                      <img class="card-img-top" src="${imageUrl}"/>
-                      <div class="card-body p-4">
-                        <div class="text-center">
-                          <h5 class="fw-bolder">${category.cate_name}</h5>
-                          <a href="updateCategory.html?categoryId=${category.cate_id}" class="btn btn-primary">Update</a>
-                        </div>
+      window.onload = async function () {
+        try {
+          // Fetch categories and display them using async/await
+          const response = await fetch("/get-admin-category");
+          const data = await response.json();
+    
+          if (data) {
+            const categoryContainer = document.querySelector(".row");
+            categoryContainer.innerHTML = ""; // Clear any previous categories
+    
+            // Iterate over the fetched categories and create category cards
+            data.data.forEach((category) => {
+              const imageUrl = category.cate_image
+                ? "http://localhost:8080/" + category.cate_image
+                : "default-image.jpg";
+    
+              const categoryCard = `
+                <div class="col mb-5">
+                  <div class="card">
+                    <img class="card-img-top" src="${imageUrl}"/>
+                    <div class="card-body p-4">
+                      <div class="text-center">
+                        <h5 class="fw-bolder">${category.cate_name}</h5>
+                        <a href="updateCategory.html?categoryId=${category.cate_id}" class="btn btn-primary">Update</a>
                       </div>
                     </div>
                   </div>
-                `;
-                categoryContainer.innerHTML += categoryCard;
-              });
-            } else {
-              console.error("Error fetching categories:", data.errors);
-              alert("Failed to load categories.");
-            }
-          })
-          .catch((error) => {
-            console.error("Error fetching categories:", error);
+                </div>
+              `;
+              categoryContainer.innerHTML += categoryCard;
+            });
+          } else {
+            console.error("Error fetching categories:", data.errors);
             alert("Failed to load categories.");
-          });
+          }
+        } catch (error) {
+          console.error("Error fetching categories:", error);
+          alert("Failed to load categories.");
+        }
       };
     </script>
+    
   </body>
 </html>

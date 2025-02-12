@@ -51,66 +51,60 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- fetch category -->
     <script>
-      const productId = new URLSearchParams(window.location.search).get(
-        "productId"
-      );
-      window.onload = function () {
-        // Fetch categories and display them
-        fetch(`/get-variation-product/${productId}`)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data) {
-              const categoryContainer = document.querySelector(".row");
-              categoryContainer.innerHTML = ""; // Clear any previous categories
-
-              // foreach loop over the fetched categories and create category cards
-              data.data.forEach((Variations) => {
-                // Construct image URL
-                const imageUrl = Variations.vari_image
-                  ? "http://localhost:8080/" + Variations.vari_image
-                  : "default-image.jpg";
-
-                // Create the category card
-                const categoryCard = `
-            <div class="col mb-5">
-              <div class="card">
-                 <img class="card-img-top" src="${imageUrl}"/>
-                <div class="card-body p-4">
-                  <div class="text-center">
-                    <h5 class="fw-bolder">${Variations.pro_name}</h5>
-                    <h5 class="fw-bolder">Color : ${Variations.vari_color}</h5>
-                    <h5 class="fw-bolder">Size : ${Variations.vari_size}</h5>
-                    <h5 class="fw-bolder">Quantity: ${Variations.vari_quantity}</h5>
-                    <h5 class="fw-bolder">Price : ${Variations.vari_price}</h5>
-                    <a href="updatevariation.html?variationId=${Variations.vari_id}" class="btn btn-primary">Update</a>
+      const productId = new URLSearchParams(window.location.search).get("productId");
+    
+      window.onload = async function () {
+        try {
+          // Fetch variations for the product
+          const response = await fetch(`/get-variation-product/${productId}`);
+          const data = await response.json();
+    
+          if (data && data.data) {
+            const categoryContainer = document.querySelector(".row");
+            categoryContainer.innerHTML = ""; // Clear any previous content
+    
+            // Loop through the fetched variations and create variation cards
+            data.data.forEach((variation) => {
+              const imageUrl = variation.vari_image
+                ? "http://localhost:8080/" + variation.vari_image
+                : "default-image.jpg";
+    
+              const variationCard = `
+                <div class="col mb-5">
+                  <div class="card">
+                    <img class="card-img-top" src="${imageUrl}" alt="Variation Image"/>
+                    <div class="card-body p-4">
+                      <div class="text-center">
+                        <h5 class="fw-bolder">${variation.pro_name}</h5>
+                        <h5 class="fw-bolder">Color : ${variation.vari_color}</h5>
+                        <h5 class="fw-bolder">Size : ${variation.vari_size}</h5>
+                        <h5 class="fw-bolder">Quantity: ${variation.vari_quantity}</h5>
+                        <h5 class="fw-bolder">Price : ${variation.vari_price}</h5>
+                        <a href="updatevariation.html?variationId=${variation.vari_id}" class="btn btn-primary">Update</a>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              `;
+              categoryContainer.innerHTML += variationCard;
+            });
+    
+            // Add the "Add Variations" button
+            const addVariationButton = `
+              <div>
+                <a href="addvariation.html?productId=${productId}" class="btn btn-primary">Add Variations</a>
               </div>
-            </div>
-          `;
-                categoryContainer.innerHTML += categoryCard;
-              });
-
-              // Adding Add Variations Button at the top (outside the loop but still related to the current product)
-              const addVariationButton = `
-          <div>
-            <a href="addvariation.html?productId=${productId}" class="btn btn-primary">Add Variations</a>
-          </div>
-        `;
-              categoryContainer.insertAdjacentHTML(
-                "beforebegin",
-                addVariationButton
-              );
-            } else {
-              console.error("Error fetching categories:", data.errors);
-              alert("Failed to load categories.");
-            }
-          })
-          .catch((error) => {
-            console.error("Error fetching categories:", error);
-            alert("Failed to load categories.");
-          });
+            `;
+            categoryContainer.insertAdjacentHTML("beforebegin", addVariationButton);
+          } else {
+            throw new Error("No variations found for this product.");
+          }
+        } catch (error) {
+          console.error("Error fetching variations:", error);
+          alert("Failed to load variations.");
+        }
       };
     </script>
+    
   </body>
 </html>

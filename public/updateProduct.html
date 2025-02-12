@@ -183,118 +183,111 @@
 
     <!-- ADD CATEGORY -->
     <script>
-      const productId = new URLSearchParams(window.location.search).get(
-        "productId"
-      );
+      const productId = new URLSearchParams(window.location.search).get("productId");
+    
       // Fetch product
-      fetch(`/get-single-product/${productId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          const category = data.data[0];
-          if (category) {
-            document.getElementById("pro_name").value = category.pro_name;
-            document.getElementById("pro_description").value =
-              category.pro_description;
-            document.getElementById("pro_id").value = category.pro_id;
-            document.getElementById("active").value = category.is_active;
+      async function fetchProduct() {
+        try {
+          const response = await fetch(`/get-single-product/${productId}`);
+          const data = await response.json();
+          const product = data.data[0];
+    
+          if (product) {
+            document.getElementById("pro_name").value = product.pro_name;
+            document.getElementById("pro_description").value = product.pro_description;
+            document.getElementById("pro_id").value = product.pro_id;
+            document.getElementById("active").value = product.is_active;
           } else {
-            throw new Error("Category not found");
+            throw new Error("Product not found");
           }
-        })
-        .catch((error) => {
-          console.error("Error fetching category data:", error);
-          document.getElementById("error-message").textContent =
-            "Error fetching category data: " + error.message;
+        } catch (error) {
+          console.error("Error fetching product data:", error);
+          document.getElementById("error-message").textContent = "Error fetching product data: " + error.message;
           document.getElementById("error-message").style.display = "block";
-        });
-
-      // update product  
-      document
-        .getElementById("submitBtn")
-        .addEventListener("click", function () {
-          const pro_name = document.getElementById("pro_name").value;
-          const pro_description = document.getElementById("pro_description").value;
-          let isValid = true;
-          // console.log(pro_name);
-          // console.log(pro_description);
-
-          // Category Name validation
-          if (!pro_name.trim()) {
-            document.getElementById("nameError").style.display = "block";
-            isValid = false;
-          } else {
-            document.getElementById("nameError").style.display = "none";
-          }
-
-          // Category Description validation
-          if (!pro_description.trim()) {
-            document.getElementById("descError").style.display = "block";
-            isValid = false;
-          } else {
-            document.getElementById("descError").style.display = "none";
-          }
-
-          if (isValid) {
-            // Prepare the data to be sent to the server
-            const data = {
-              name: pro_name,
-              description: pro_description,
-            };
-
-            // Send a PUT request to update the category
-            fetch(`/update-product/${productId}`, {
+        }
+      }
+    
+      // Call fetch product on page load
+      window.onload = fetchProduct;
+    
+      // Update product
+      document.getElementById("submitBtn").addEventListener("click", async function () {
+        const pro_name = document.getElementById("pro_name").value;
+        const pro_description = document.getElementById("pro_description").value;
+        let isValid = true;
+    
+        // Validate product name
+        if (!pro_name.trim()) {
+          document.getElementById("nameError").style.display = "block";
+          isValid = false;
+        } else {
+          document.getElementById("nameError").style.display = "none";
+        }
+    
+        // Validate product description
+        if (!pro_description.trim()) {
+          document.getElementById("descError").style.display = "block";
+          isValid = false;
+        } else {
+          document.getElementById("descError").style.display = "none";
+        }
+    
+        if (isValid) {
+          const data = {
+            name: pro_name,
+            description: pro_description,
+          };
+    
+          try {
+            const response = await fetch(`/update-product/${productId}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("authToken")}`,
               },
               body: JSON.stringify(data),
-            })
-              .then((response) => response.json())
-              .then((result) => {
-                if (result.status === 200) {
-                  alert("Category updated successfully");
-                  window.location.href = "./adminProduct.html";
-                } else {
-                  alert(`Error: ${result.message}`);
-                }
-              })
-              .catch((error) => {
-                console.error("Error updating category:", error);
-                alert("There was an error updating the category");
-              });
+            });
+    
+            const result = await response.json();
+            if (result.status === 200) {
+              alert("Product updated successfully");
+              window.location.href = "./adminProduct.html";
+            } else {
+              alert(`Error: ${result.message}`);
+            }
+          } catch (error) {
+            console.error("Error updating product:", error);
+            alert("There was an error updating the product");
           }
-        });
-
-      // is_active
-      deleteBtn.addEventListener("click", function () {
-
+        }
+      });
+    
+      // Delete product
+      document.getElementById("deleteBtn").addEventListener("click", async function () {
         const isActiveValue = document.getElementById("active").value;
-        console.log(isActiveValue);
-
         const data = {
-          activate: isActiveValue, 
+          activate: isActiveValue,
         };
-
-        // delete
-        fetch(`/delete-product/${productId}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            alert(data.message);
-            window.location.href = "./adminProduct.html";            
-          })
-          .catch((error) => {
-            console.error("Error deleting category:", error);
-            alert("Error deleting category.");
+    
+        try {
+          const response = await fetch(`/delete-product/${productId}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+            body: JSON.stringify(data),
           });
+    
+          const result = await response.json();
+          alert(result.message);
+          window.location.href = "./adminProduct.html";
+        } catch (error) {
+          console.error("Error deleting product:", error);
+          alert("Error deleting product.");
+        }
       });
     </script>
+    
   </body>
 </html>

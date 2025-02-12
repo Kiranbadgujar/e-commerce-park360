@@ -171,33 +171,34 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom Script -->
     <script>
-      // Fetch the dashboard data
-      function fetchDashboardStats() {
-        fetch("/dashboard")
-          .then((response) => response.json())
-          .then((data) => {
-            document.getElementById("user-count").textContent = data.data.users;
-            document.getElementById("category-count").textContent = data.data.categories;
-            document.getElementById("product-count").textContent = data.data.products;
-            document.getElementById("variation-count").textContent = data.data.variations;
-          })
-          .catch((error) => {
-            console.error("Error fetching dashboard data:", error);
-          });
+      // Fetch the dashboard data using async/await
+      async function fetchDashboardStats() {
+        try {
+          const response = await fetch("/dashboard");
+          const data = await response.json();
+    
+          document.getElementById("user-count").textContent = data.data.users;
+          document.getElementById("category-count").textContent = data.data.categories;
+          document.getElementById("product-count").textContent = data.data.products;
+          document.getElementById("variation-count").textContent = data.data.variations;
+        } catch (error) {
+          console.error("Error fetching dashboard data:", error);
+        }
       }
-
+    
       // Call the function to fetch stats when the page loads
       window.onload = fetchDashboardStats;
-
+    
       // Toggle sidebar visibility
       const sidebar = document.getElementById("sidebar");
       const content = document.getElementById("content");
       const sidebarToggle = document.getElementById("sidebarToggle");
-
-      sidebarToggle.addEventListener("click", function() {
+    
+      sidebarToggle.addEventListener("click", function () {
         sidebar.classList.toggle("collapsed");
         content.classList.toggle("expanded");
       });
     </script>
+    
   </body>
 </html>
