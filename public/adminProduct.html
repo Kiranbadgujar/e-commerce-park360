@@ -1,60 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Admin Dashboard</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
+    <title>Admin</title>
+    <!-- plugins:css -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
       rel="stylesheet"
+      href="assets/vendors/mdi/css/materialdesignicons.min.css"
     />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/ti-icons/css/themify-icons.css"
+    />
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css" />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/font-awesome/css/font-awesome.min.css"
+    />
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link
+      rel="stylesheet"
+      href="assets/vendors/font-awesome/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css"
+    />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
   </head>
   <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="./dashboard.html">Admin Dashboard</a>
-      </div>
-    </nav>
-
-    <!-- Section-->
-     
-    <section class="py-3">
-      <!-- Button -->
-      <div style="margin-left: 155px;">
-        <a class="btn btn-primary" href="./addProduct.html" id="show-users-btn">
-          Add Products
-        </a>
-      </div>
-      <div class="container px-4 px-lg-5 mt-3">
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav
+        class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"
+      >
         <div
-          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+          class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start"
         >
-          <!-- Category loop inserted here -->
+          <a class="navbar-brand brand-logo" href="dashboard.html"
+            >Admin Dashboard</a
+          >
         </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button
+            class="navbar-toggler navbar-toggler align-self-center"
+            type="button"
+            data-toggle="minimize"
+          >
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <div class="search-field d-none d-md-block">
+            <form class="d-flex align-items-center h-100" action="#">
+              <div class="input-group">
+                <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                </div>
+                <input
+                  type="text"
+                  class="form-control bg-transparent border-0"
+                  placeholder="Search projects"
+                />
+              </div>
+            </form>
+          </div>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+              </a>
+            </li>
+          </ul>
+          <button
+            class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+            type="button"
+            data-toggle="offcanvas"
+          >
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminCategory.html">
+                <span class="menu-title">Categories</span>
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminProduct.html">
+                <span class="menu-title">Products</span>
+                <i class="mdi mdi-table-large menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span class="menu-title">Variations</span>
+                <i class="mdi mdi-chart-bar menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span class="menu-title">User</span>
+                <i class="mdi mdi-lock menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header" style="margin-left: 51px">
+              <a
+                href="addProduct.html"
+                class="btn btn-primary"
+                >Add Products</a
+              >
+            </div>
+            <!-- seacond row -->
+            <div class="container px-4 px-lg-5 mt-3">
+              <div
+                class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center"
+              >
+                <!-- Category loop inserted here -->
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div
+              class="d-sm-flex justify-content-center justify-content-sm-between"
+            >
+              <span
+                class="text-muted text-center text-sm-left d-block d-sm-inline-block"
+                >Copyright © 2023 All rights reserved.</span
+              >
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
       </div>
-    </section>
-    <!-- Footer-->
-    <footer class="py-4 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">
-          Copyright &copy; Your Website 2025
-        </p>
-      </div>
-    </footer>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- fetch category -->
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/chart.umd.js"></script>
+    <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <script src="assets/js/jquery.cookie.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+    <!-- fetch product -->
     <script>
       window.onload = function () {
         // Fetch categories and display them
@@ -69,18 +198,20 @@
               data.data.forEach((products) => {
                 // console.log(category);
                 const categoryCard = `
-                  <div class="col mb-5">
-                    <div class="card">
-                      <div class="card-body p-4">
-                        <div class="text-center">
-                          <h5 class="fw-bolder">${products.pro_name}</h5>
-                          <h5 class="fw-bolder">${products.pro_description}</h5>
-                          <a href="updateproduct.html?productId=${products.pro_id}" class="btn btn-primary">Update</a>
-                          <a href="showvariation.html?productId=${products.pro_id}" class="btn btn-primary">Show</a>
+                 <div class="col mb-5">
+                  <div class="card">
+                    <div class="card-body p-4">
+                      <div class="text-center">
+                        <h5 class="fw-bolder">${products.pro_name}</h5>
+                        <h5 class="fw-bolder">${products.pro_description}</h5>
+                        <div class="d-flex justify-content-center">
+                          <a href="updateproduct.html?productId=${products.pro_id}" class="btn btn-primary me-2">Update</a>
+                          <a href="showVariation.html?productId=${products.pro_id}" class="btn btn-primary">Show</a>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
                 `;
                 categoryContainer.innerHTML += categoryCard;
               });

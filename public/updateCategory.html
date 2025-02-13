@@ -1,207 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="Admin Dashboard" />
-    <meta name="author" content="Your Name" />
-    <title>Admin Dashboard</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <title>Admin</title>
+    <!-- plugins:css -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+      href="assets/vendors/mdi/css/materialdesignicons.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/ti-icons/css/themify-icons.css"
+    />
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css" />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/font-awesome/css/font-awesome.min.css"
+    />
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link
+      rel="stylesheet"
+      href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css"
+    />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
     <style>
-      #active {
-        width: 100%;
-        padding: 10px;
-        font-size: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #fff;
-        transition: border-color 0.3s ease;
+      a {
+        text-decoration: none; /* Removes the underline */
+        color: inherit; /* Inherits the color of the parent element */
       }
 
-      #active:focus {
-        border-color: #007bff; /* Change border color when focused */
-        outline: none;
+      a:hover {
+        text-decoration: none; /* Removes underline on hover */
+        color: inherit; /* Keeps the original color on hover */
       }
-
-      #active option {
-        padding: 10px;
-        font-size: 1rem;
-      }
-
-      #active option:hover {
-        background-color: #f0f0f0;
-      }
-
-      .col-lg-6 {
-        margin-bottom: 1rem;
+      .error-message {
+        color: red;
+        display: none;
       }
     </style>
   </head>
   <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="./dashboard.html">Admin Dashboard</a>
-      </div>
-    </nav>
-
-    <!-- Section-->
-    <section>
-      <div class="container my-5">
-        <div class="container-fluid h-custom">
-          <div
-            class="row d-flex justify-content-center align-items-center h-100"
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav
+        class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"
+      >
+        <div
+          class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start"
+        >
+          <a class="navbar-brand brand-logo" href="dashboard.html"
+            >Admin Dashboard</a
           >
-            <div class="col-md-9 col-lg-6 col-xl-5">
-              <img
-                src="/1678633884531.jpg"
-                class="img-fluid"
-                alt="Sample image"
-              />
-            </div>
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form id="addCategory" enctype="multipart/form-data">
-                <!--  -->
-                <div class="row">
-                  <div class="col-lg-6 form-outline mb-4">
-                    <label class="form-label" for="cate_name"
-                      >Category ID</label
-                    >
-                    <input
-                      type="text"
-                      id="cate_id"
-                      name="cate_id"
-                      class="form-control form-control-lg"
-                      readonly
-                    />
-                    <div
-                      id="nameError"
-                      class="text-danger"
-                      style="display: none"
-                    >
-                      Category Name Cannot be Empty.
-                    </div>
-                  </div>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button
+            class="navbar-toggler navbar-toggler align-self-center"
+            type="button"
+            data-toggle="minimize"
+          >
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminCategory.html">
+                <span class="menu-title">Categories</span>
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminProduct.html">
+                <span class="menu-title">Products</span>
+                <i class="mdi mdi-table-large menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span class="menu-title">Variations</span>
+                <i class="mdi mdi-chart-bar menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span class="menu-title">User</span>
+                <i class="mdi mdi-lock menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <form id="addCategory" class="forms-sample">
+                      <div class="form-group">
+                        <label for="categorySelect">Categories want to</label>
+                        <select class="form-select" id="categorySelect">
+                          <option value="1">Activate</option>
+                          <option value="0">Deactivate</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="cate_name">Category Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cate_name"
+                          placeholder="Category Name"
+                        />
+                        <div id="nameError" class="error-message">
+                          Category name is required.
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="cate_description">Category Description</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cate_description"
+                          placeholder="Category Description"
+                        />
+                        <div id="descError" class="error-message">
+                          Category description is required.
+                        </div>
+                      </div>
 
-                  <div class="col-lg-6 form-outline mb-4">
-                    <label class="form-label" for="cate_name">ACTIVE</label>
-                    <select name="active" id="active">
-                      <option value="1">1</option>
-                      <option value="0">0</option>
-                    </select>
-                  </div>
-                </div>
+                      <!-- Hidden field for category ID -->
+                      <input type="hidden" id="cate_id" />
+                      <input type="hidden" id="active" />
 
-                <!-- Category NAME -->
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="cate_name"
-                    >Category Name</label
-                  >
-                  <input
-                    type="text"
-                    id="cate_name"
-                    name="cate_name"
-                    class="form-control form-control-lg"
-                  />
-                  <div id="nameError" class="text-danger" style="display: none">
-                    Category Name Cannot be Empty.
+                      <button
+                        type="button"
+                        id="submitBtn"
+                        class="btn btn-gradient-primary me-2"
+                      >
+                        Update
+                      </button>
+                      <button type="button" class="btn btn-light" id="deleteBtn">
+                        Want to delete
+                      </button>
+                    </form>
                   </div>
                 </div>
-
-                <!-- Category Description -->
-                <div class="form-outline mb-3">
-                  <label class="form-label" for="cate_description"
-                    >Category Description</label
-                  >
-                  <input
-                    type="text"
-                    id="cate_description"
-                    name="cate_description"
-                    class="form-control form-control-lg"
-                  />
-                  <div id="descError" class="text-danger" style="display: none">
-                    Category Description Cannot be Empty.
-                  </div>
-                </div>
-                <!-- button -->
-                <div class="row">
-                  <div class="col-md-6 text-center text-lg-start mt-4 pt-2">
-                    <button
-                      type="button"
-                      class="btn btn-primary btn-lg"
-                      style="padding-left: 2.5rem; padding-right: 2.5rem"
-                      id="submitBtn"
-                    >
-                      Update
-                    </button>
-                  </div>
-                  <div class="col-md-6 text-center text-lg-start mt-4 pt-2">
-                    <button
-                      type="button"
-                      class="btn btn-danger btn-lg"
-                      style="padding-left: 2.5rem; padding-right: 2.5rem"
-                      id="deleteBtn"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <div
-                id="error-message"
-                class="text-danger"
-                style="display: none"
-              ></div>
+              </div>
             </div>
           </div>
+          <!-- content-wrapper ends -->
+          <footer class="footer">
+            <div
+              class="d-sm-flex justify-content-center justify-content-sm-between"
+            >
+              <span
+                class="text-muted text-center text-sm-left d-block d-sm-inline-block"
+                >Copyright © 2023
+                <a href="https://www.bootstrapdash.com/" target="_blank"
+                  >BootstrapDash</a
+                >. All rights reserved.</span
+              >
+              <span
+                class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"
+                >Hand-crafted & made with
+                <i class="mdi mdi-heart text-danger"></i
+              ></span>
+            </div>
+          </footer>
         </div>
       </div>
-    </section>
-
-    <!-- Footer-->
-    <footer class="py-3 bg-dark" style="margin-top: 45px">
-      <div class="container">
-        <p class="m-0 text-center text-white">
-          Copyright &copy; Your Website 2025
-        </p>
-      </div>
-    </footer>
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- ADD CATEGORY -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/chart.umd.js"></script>
+    <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <script src="assets/js/jquery.cookie.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+    <!-- Update CATEGORY -->
     <script>
-      const categoryId = new URLSearchParams(window.location.search).get("categoryId");
-    
+      const categoryId = new URLSearchParams(window.location.search).get(
+        "categoryId"
+      );
+
       // Fetch category data using async/await
       async function fetchCategory() {
         try {
           const response = await fetch(`/get-single-category/${categoryId}`);
           const data = await response.json();
           const category = data.data[0];
-    
+
           if (category) {
             document.getElementById("cate_name").value = category.cate_name;
-            document.getElementById("cate_description").value = category.cate_description;
+            document.getElementById("cate_description").value =
+              category.cate_description;
             document.getElementById("cate_id").value = category.cate_id;
             document.getElementById("active").value = category.is_active;
           } else {
@@ -209,21 +235,23 @@
           }
         } catch (error) {
           console.error("Error fetching category data:", error);
-          document.getElementById("error-message").textContent = "Error fetching category data: " + error.message;
+          document.getElementById("error-message").textContent =
+            "Error fetching category data: " + error.message;
           document.getElementById("error-message").style.display = "block";
         }
       }
-    
+
       // Call fetchCategory on page load
       window.onload = fetchCategory;
-    
+
       // Update category
       const submitBtn = document.getElementById("submitBtn");
       submitBtn.addEventListener("click", async function () {
         const cate_name = document.getElementById("cate_name").value;
-        const cate_description = document.getElementById("cate_description").value;
+        const cate_description =
+          document.getElementById("cate_description").value;
         let isValid = true;
-    
+
         // Category Name validation
         if (!cate_name.trim()) {
           document.getElementById("nameError").style.display = "block";
@@ -231,7 +259,7 @@
         } else {
           document.getElementById("nameError").style.display = "none";
         }
-    
+
         // Category Description validation
         if (!cate_description.trim()) {
           document.getElementById("descError").style.display = "block";
@@ -239,13 +267,13 @@
         } else {
           document.getElementById("descError").style.display = "none";
         }
-    
+
         if (isValid) {
           const data = {
             name: cate_name,
             description: cate_description,
           };
-    
+
           try {
             // Update category using async/await
             const response = await fetch(`/update-category/${categoryId}`, {
@@ -256,9 +284,9 @@
               },
               body: JSON.stringify(data),
             });
-    
+
             const result = await response.json();
-    
+
             if (result.status === 200) {
               alert("Category updated successfully");
               window.location.href = "./adminCategory.html";
@@ -271,9 +299,9 @@
           }
         }
       });
-    
-      // Delete category
-      const deleteBtn = document.getElementById("deleteBtn");
+
+       // Delete category
+       const deleteBtn = document.getElementById("deleteBtn");
       deleteBtn.addEventListener("click", async function () {
         const isActiveValue = document.getElementById("active").value;
         console.log(isActiveValue);
@@ -301,6 +329,5 @@
         }
       });
     </script>
-    
   </body>
 </html>

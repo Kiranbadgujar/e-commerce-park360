@@ -1,204 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Admin Dashboard</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
+    <title>Admin</title>
+    <!-- plugins:css -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
       rel="stylesheet"
+      href="assets/vendors/mdi/css/materialdesignicons.min.css"
     />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/ti-icons/css/themify-icons.css"
+    />
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css" />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/font-awesome/css/font-awesome.min.css"
+    />
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link
+      rel="stylesheet"
+      href="assets/vendors/font-awesome/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css"
+    />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
     <style>
-      body {
-        background-color: #f8f9fa;
+      a {
+        text-decoration: none; /* Removes the underline */
+        color: inherit; /* Inherits the color of the parent element */
       }
-      .dashboard-card {
-        margin: 20px;
-      }
-      .card-header {
-        background-color: #007bff;
-        color: white;
-      }
-      .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 200px;
-        background-color: #343a40;
-        padding-top: 20px;
-        transition: width 0.3s ease;
-      }
-      .sidebar a {
-        color: white;
-        padding: 10px 15px;
-        text-decoration: none;
-        display: block;
-        font-size: 18px;
-      }
-      .sidebar a:hover {
-        background-color: #007bff;
-      }
-      .sidebar.collapsed {
-        width: 0px;
-      }
-      .sidebar.collapsed a {
-        font-size: 14px;
-        text-align: center;
-      }
-      .sidebar-toggle {
-        position: absolute;
-        top: 20px;
-        right: -65px;
-        font-size: 24px;
-        cursor: pointer;
-        color: #343a40;
-      }
-      .content {
-        margin-left: 250px;
-        padding: 20px;
-        transition: margin-left 0.3s ease;
-      }
-      .content.expanded {
-        margin-left: 60px; /* Adjust this width to match the collapsed sidebar */
+
+      a:hover {
+        text-decoration: none; /* Removes underline on hover */
+        color: inherit; /* Keeps the original color on hover */
       }
     </style>
   </head>
   <body>
-    <!-- Left Sidebar -->
-    <div class="sidebar" id="sidebar">
-      <span class="sidebar-toggle" id="sidebarToggle">Menu</span> <!-- Toggle icon -->
-      <a href="./dashboard.html">Dashboard</a>
-      <a href="adminCategory.html">Categories</a>
-      <a href="adminProduct.html">Products</a>
-      <a href="showUser.html">Users</a>
-      <a href="adminVariation.html">Variations</a>
-    </div>
-
-    <!-- Main Content -->
-    <div class="content" id="content">
-      <!-- Navigation-->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
-          <a class="navbar-brand" href="./dashboard.html">Admin Dashboard</a>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav
+        class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"
+      >
+        <div
+          class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start"
+        >
+          <a class="navbar-brand brand-logo" href="dashboard.html"
+            >Admin Dashboard</a
+          >
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button
+            class="navbar-toggler navbar-toggler align-self-center"
+            type="button"
+            data-toggle="minimize"
+          >
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <div class="search-field d-none d-md-block">
+            <form class="d-flex align-items-center h-100" action="#">
+              <div class="input-group">
+                <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                </div>
+                <input
+                  type="text"
+                  class="form-control bg-transparent border-0"
+                  placeholder="Search projects"
+                />
+              </div>
+            </form>
+          </div>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+              </a>
+            </li>
+          </ul>
+          <button
+            class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+            type="button"
+            data-toggle="offcanvas"
+          >
+            <span class="mdi mdi-menu"></span>
+          </button>
         </div>
       </nav>
-
-      <!-- SECTION -->
-      <section class="container">
-        <div class="row mt-5">
-          <div class="col-md-6">
-            <div class="card dashboard-card">
-              <div class="card-header">
-                <h5>Users</h5>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminCategory.html">
+                <span class="menu-title">Categories</span>
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminProduct.html">
+                <span class="menu-title">Products</span>
+                <i class="mdi mdi-table-large menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminVariation.html ">
+                <span class="menu-title">Variations</span>
+                <i class="mdi mdi-chart-bar menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span class="menu-title">User</span>
+                <i class="mdi mdi-lock menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">
+                Dashboard
+              </h3>
+            </div>
+            <div class="row">
+              <div class="col-md-6 stretch-card grid-margin">
+                <div class="card bg-gradient-danger card-img-holder text-white">
+                  <a href="adminCategory.html">
+                    <div class="card-body">
+                      <img
+                        src="assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">Users</h4>
+                      <h2 class="mb-5" id="user-count">Loading</h2>
+                    </div>
+                  </a>
+                </div>
               </div>
-              <div class="card-body row">
-                <h3 class="col-md-6" id="user-count">Loading...</h3>
-                <a href="./showUser.html" class="col-md-6 btn btn-primary">
-                  Show
-                </a>
+              <div class="col-md-6 stretch-card grid-margin">
+                <div
+                  class="card bg-gradient-success card-img-holder text-white"
+                >
+                  <a href="adminCategory.html">
+                    <div class="card-body">
+                      <img
+                        src="assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">Categorys</h4>
+                      <h2 class="mb-5" id="category-count">Loading</h2>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- seacond row -->
+            <div class="row">
+              <div class="col-md-6 stretch-card grid-margin">
+                <div class="card bg-gradient-danger card-img-holder text-white">
+                  <a href="adminCategory.html">
+                    <div class="card-body">
+                      <img
+                        src="assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">Products</h4>
+                      <h2 class="mb-5" id="product-count">Loading</h2>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-6 stretch-card grid-margin">
+                <div
+                  class="card bg-gradient-success card-img-holder text-white"
+                >
+                  <a href="adminCategory.html">
+                    <div class="card-body">
+                      <img
+                        src="assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Variation Products
+                      </h4>
+                      <h2 class="mb-5" id="variation-count">Loading</h2>
+                    </div>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-          
-          <div class="col-md-6">
-            <div class="card dashboard-card">
-              <div class="card-header">
-                <h5>Categories</h5>
-              </div>
-              <div class="card-body row">
-                <h3 class="col-md-6" id="category-count">Loading...</h3>
-                <a href="adminCategory.html" class="col-md-6 btn btn-primary">
-                  Show
-                </a>
-              </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div
+              class="d-sm-flex justify-content-center justify-content-sm-between"
+            >
+              <span
+                class="text-muted text-center text-sm-left d-block d-sm-inline-block"
+                >Copyright © 2023 All rights reserved.</span
+              >
             </div>
-          </div>
+          </footer>
+          <!-- partial -->
         </div>
-        <!-- Second Row -->
-        <div class="row mt-5">
-          <div class="col-md-6">
-            <div class="card dashboard-card">
-              <div class="card-header">
-                <h5>Products</h5>
-              </div>
-              <div class="card-body row">
-                <h3 class="col-md-6" id="product-count">Loading...</h3>
-                <a href="adminProduct.html" class="col-md-6 btn btn-primary">
-                  Show
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="card dashboard-card">
-              <div class="card-header">
-                <h5>Variations Products</h5>
-              </div>
-              <div class="card-body row">
-                <h3 class="col-md-6" id="variation-count">Loading...</h3>
-                <a class="col-md-6 btn btn-primary" href="adminVariation.html" id="show-users-btn">
-                  Show
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Footer-->
-    <footer class="py-4 bg-dark" style="margin-top: 55px">
-      <div class="container">
-        <p class="m-0 text-center text-white">
-          Copyright &copy; Your Website 2025
-        </p>
+        <!-- main-panel ends -->
       </div>
-    </footer>
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom Script -->
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/chart.umd.js"></script>
+    <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <script src="assets/js/jquery.cookie.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+    <!-- Fetch Data For Dashboard -->
     <script>
       // Fetch the dashboard data using async/await
       async function fetchDashboardStats() {
         try {
           const response = await fetch("/dashboard");
           const data = await response.json();
-    
+
           document.getElementById("user-count").textContent = data.data.users;
-          document.getElementById("category-count").textContent = data.data.categories;
-          document.getElementById("product-count").textContent = data.data.products;
-          document.getElementById("variation-count").textContent = data.data.variations;
+          document.getElementById("category-count").textContent =
+            data.data.categories;
+          document.getElementById("product-count").textContent =
+            data.data.products;
+          document.getElementById("variation-count").textContent =
+            data.data.variations;
         } catch (error) {
           console.error("Error fetching dashboard data:", error);
         }
       }
-    
+
       // Call the function to fetch stats when the page loads
       window.onload = fetchDashboardStats;
-    
+
       // Toggle sidebar visibility
       const sidebar = document.getElementById("sidebar");
       const content = document.getElementById("content");
       const sidebarToggle = document.getElementById("sidebarToggle");
-    
+
       sidebarToggle.addEventListener("click", function () {
         sidebar.classList.toggle("collapsed");
         content.classList.toggle("expanded");
       });
     </script>
-    
   </body>
 </html>

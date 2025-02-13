@@ -1,170 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Admin Dashboard</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css" />
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
     <style>
-      #active {
-        width: 100%;
-        padding: 10px;
-        font-size: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #fff;
-        transition: border-color 0.3s ease;
+      a {
+        text-decoration: none;
+        color: inherit;
       }
-
-      #active:focus {
-        border-color: #007bff; /* Change border color when focused */
-        outline: none;
+      a:hover {
+        text-decoration: none;
+        color: inherit;
       }
-
-      #active option {
-        padding: 10px;
-        font-size: 1rem;
-      }
-
-      #active option:hover {
-        background-color: #f0f0f0;
-      }
-
-      .col-lg-6 {
-        margin-bottom: 1rem;
+      .error-message {
+        color: red;
+        display: none;
       }
     </style>
   </head>
   <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="./dashboard.html">Admin Dashboard</a>
-      </div>
-    </nav>
-
-    <!-- Section-->
-    <section>
-      <div class="container my-5">
-        <div class="container-fluid h-custom">
-          <div
-            class="row d-flex justify-content-center align-items-center h-100"
-          >
-            <div class="col-md-9 col-lg-6 col-xl-5">
-              <img
-                src="/attachment_147202790.png"
-                class="img-fluid"
-                alt="Sample image"
-              />
-            </div>
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form id="addCategory">
-                <!-- Category ID -->
-                <div class="col-lg-6 form-outline mb-4">
-                  <select
-                    name="active"
-                    id="active"
-                    aria-describedby="cateError"
-                  >
-                    <option value="">Select Category</option>
-                  </select>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+          <a class="navbar-brand brand-logo" href="dashboard.html">Admin Dashboard</a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <div class="search-field d-none d-md-block">
+            <form class="d-flex align-items-center h-100" action="#">
+              <div class="input-group">
+                <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
                 </div>
-
-                <!-- Product Name -->
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="pro_name">Product Name</label>
-                  <input
-                    type="text"
-                    id="pro_name"
-                    name="pro_name"
-                    class="form-control form-control-lg"
-                    aria-describedby="nameError"
-                  />
-                  <div id="nameError" class="text-danger" style="display: none">
-                    Product Name cannot be empty.
+                <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects" />
+              </div>
+            </form>
+          </div>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminCategory.html">
+                <span class="menu-title">Categories</span>
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminProduct.html">
+                <span class="menu-title">Products</span>
+                <i class="mdi mdi-table-large menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span class="menu-title">Variations</span>
+                <i class="mdi mdi-chart-bar menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span class="menu-title">User</span>
+                <i class="mdi mdi-lock menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <form id="addCategory" class="forms-sample">
+                      <div class="form-group">
+                        <label for="categorySelect">Select Categories</label>
+                        <select class="form-select" id="categorySelect">
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="cate_name">Product Name</label>
+                        <input type="text" class="form-control" id="cate_name" placeholder="Product Name" />
+                        <div id="nameError" class="error-message">Product name is required.</div>
+                      </div>
+                      <div class="form-group">
+                        <label for="cate_description">Product Description</label>
+                        <input type="text" class="form-control" id="cate_description" placeholder="Product Description" />
+                        <div id="descError" class="error-message">Product description is required.</div>
+                      </div>
+                      <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
                   </div>
                 </div>
-
-                <!-- Product Description -->
-                <div class="form-outline mb-3">
-                  <label class="form-label" for="pro_description"
-                    >Product Description</label
-                  >
-                  <input
-                    type="text"
-                    id="pro_description"
-                    name="pro_description"
-                    class="form-control form-control-lg"
-                    aria-describedby="descError"
-                  />
-                  <div id="descError" class="text-danger" style="display: none">
-                    Product Description cannot be empty.
-                  </div>
-                </div>
-
-                <div class="text-center text-lg-start mt-4 pt-2">
-                  <button
-                    type="submit"
-                    class="btn btn-primary btn-lg"
-                    style="padding-left: 2.5rem; padding-right: 2.5rem"
-                  >
-                    Add
-                  </button>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
+          <!-- content-wrapper ends -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">
+                Copyright © 2023
+                <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.
+              </span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+                Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i>
+              </span>
+            </div>
+          </footer>
         </div>
       </div>
-    </section>
-
-    <!-- Footer-->
-    <footer class="py-3 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">
-          Copyright &copy; Your Website 2025
-        </p>
-      </div>
-    </footer>
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- ADD CATEGORY -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/chart.umd.js"></script>
+    <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <script src="assets/js/jquery.cookie.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+    <!-- ADD PRODUCT -->
     <script>
       // Fetch categories when the page loads
       window.onload = function () {
         fetchCategories();
       };
-    
+
       // Fetch categories function
       async function fetchCategories() {
         try {
           const response = await fetch("/get-category");
           const data = await response.json();
-    
-          const categorySelect = document.getElementById("active");
+
+          const categorySelect = document.getElementById("categorySelect");
           data.data.forEach((category) => {
             const option = document.createElement("option");
             option.value = category.cate_id;
@@ -176,78 +190,73 @@
           alert("Error fetching categories.");
         }
       }
-    
+
       // Handle the form submission
-      document
-        .getElementById("addCategory")
-        .addEventListener("submit", async function (e) {
-          e.preventDefault(); // Prevent default form submission
-    
-          // Clear previous error messages
-          document.getElementById("nameError").style.display = "none";
-          document.getElementById("descError").style.display = "none";
-    
-          // Get form data
-          const productName = document.getElementById("pro_name").value;
-          const productDescription = document.getElementById("pro_description").value;
-          const CategoryID = document.getElementById("active").value;
-    
-          let valid = true;
-    
-          // Product Name validation
-          if (!productName.trim()) {
-            document.getElementById("nameError").style.display = "block";
-            valid = false;
-          }
-    
-          // Product Description validation
-          if (!productDescription.trim()) {
-            document.getElementById("descError").style.display = "block";
-            valid = false;
-          }
-    
-          // If valid, submit the data
-          if (valid) {
-            const data = {
-              name: productName,
-              description: productDescription,
-              cate_id: CategoryID,
-            };
-    
-            // Fetch token from localStorage
-            const token = localStorage.getItem("authToken");
-    
-            try {
-              // Perform the fetch API request
-              const response = await fetch("/insert-product", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-              });
-    
-              const result = await response.json();
-    
-              if (result.status === 200) {
-                alert("Product added successfully!");
-                // Optionally reset form
-                document.getElementById("addCategory").reset();
-                document.getElementById("cateError").style.display = "none";
-                document.getElementById("nameError").style.display = "none";
-                document.getElementById("descError").style.display = "none";
-              } else {
-                alert(result.message);
-                window.location.href = "./adminProduct.html";
-              }
-            } catch (error) {
-              console.error("Error:", error);
-              alert("Something went wrong, please try again.");
+      document.getElementById("addCategory").addEventListener("submit", async function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // Clear previous error messages
+        document.getElementById("nameError").style.display = "none";
+        document.getElementById("descError").style.display = "none";
+
+        // Get form data
+        const productName = document.getElementById("cate_name").value;
+        const productDescription = document.getElementById("cate_description").value;
+        const CategoryID = document.getElementById("categorySelect").value;
+
+        let valid = true;
+
+        // Product Name validation
+        if (!productName.trim()) {
+          document.getElementById("nameError").style.display = "block";
+          valid = false;
+        }
+
+        // Product Description validation
+        if (!productDescription.trim()) {
+          document.getElementById("descError").style.display = "block";
+          valid = false;
+        }
+
+        // If valid, submit the data
+        if (valid) {
+          const data = {
+            name: productName,
+            description: productDescription,
+            cate_id: CategoryID,
+          };
+
+          // Fetch token from localStorage
+          const token = localStorage.getItem("authToken");
+
+          try {
+            // Perform the fetch API request
+            const response = await fetch("/insert-product", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            if (result.status === 200) {
+              alert("Product added successfully!");
+              // Optionally reset form
+              document.getElementById("addCategory").reset();
+              document.getElementById("nameError").style.display = "none";
+              document.getElementById("descError").style.display = "none";
+            } else {
+              alert(result.message);
+              window.location.href = "./adminProduct.html";
             }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("Something went wrong, please try again.");
           }
-        });
+        }
+      });
     </script>
-    
   </body>
 </html>

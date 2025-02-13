@@ -1,157 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Admin Dashboard</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <title>Admin</title>
+    <!-- plugins:css -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+      href="assets/vendors/mdi/css/materialdesignicons.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/ti-icons/css/themify-icons.css"
+    />
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css" />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/font-awesome/css/font-awesome.min.css"
+    />
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link
+      rel="stylesheet"
+      href="assets/vendors/font-awesome/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css"
+    />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <style>
+      a {
+        text-decoration: none; /* Removes the underline */
+        color: inherit; /* Inherits the color of the parent element */
+      }
+
+      a:hover {
+        text-decoration: none; /* Removes underline on hover */
+        color: inherit; /* Keeps the original color on hover */
+      }
+      .error-message {
+        color: red;
+        display: none;
+      }
+    </style>
   </head>
   <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="./dashboard.html">Admin Dashboard</a>
-      </div>
-    </nav>
-
-    <!-- Section-->
-    <section>
-      <div class="container my-5">
-        <div class="container-fluid h-custom">
-          <div
-            class="row d-flex justify-content-center align-items-center h-100"
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav
+        class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"
+      >
+        <div
+          class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start"
+        >
+          <a class="navbar-brand brand-logo" href="dashboard.html"
+            >Admin Dashboard</a
           >
-            <div class="col-md-9 col-lg-6 col-xl-5">
-              <img
-                src="/attachment_147202790.png"
-                class="img-fluid"
-                alt="Sample image"
-              />
-            </div>
-            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form id="addCategory" enctype="multipart/form-data">
-                <!-- Category NAME -->
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="cate_name"
-                    >Category Name</label
-                  >
-                  <input
-                    type="text"
-                    id="cate_name"
-                    name="cate_name"
-                    class="form-control form-control-lg"
-                  />
-                  <div id="nameError" class="text-danger" style="display: none">
-                    Category Name Cannot Empty.
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button
+            class="navbar-toggler navbar-toggler align-self-center"
+            type="button"
+            data-toggle="minimize"
+          >
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <div class="search-field d-none d-md-block">
+            <form class="d-flex align-items-center h-100" action="#">
+              <div class="input-group">
+                <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                </div>
+                <input
+                  type="text"
+                  class="form-control bg-transparent border-0"
+                  placeholder="Search projects"
+                />
+              </div>
+            </form>
+          </div>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item d-none d-lg-block full-screen-link">
+              <a class="nav-link">
+                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminCategory.html">
+                <span class="menu-title">Categories</span>
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="adminProduct.html">
+                <span class="menu-title">Products</span>
+                <i class="mdi mdi-table-large menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span class="menu-title">Variations</span>
+                <i class="mdi mdi-chart-bar menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span class="menu-title">User</span>
+                <i class="mdi mdi-lock menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <form id="addCategory" class="forms-sample">
+                      <div class="form-group">
+                        <label for="cate_name">Category Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cate_name"
+                          placeholder="Category Name"
+                        />
+                        <div id="nameError" class="error-message">
+                          Category name is required.
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="cate_description"
+                          >Category Description</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cate_description"
+                          placeholder="Category Description"
+                        />
+                        <div id="descError" class="error-message">
+                          Category description is required.
+                        </div>
+                      </div>
+                      <div
+                        style="padding-left: 20px"
+                        class="form-outline flex-fill mb-3"
+                      >
+                        <label class="form-label">Image Upload</label><br />
+                        <input type="file" name="file" id="file" />
+                        <div
+                          id="fileError"
+                          class="error-message"
+                          style="display: none"
+                        >
+                          Please upload a valid image file (JPEG, PNG, GIF).
+                        </div>
+                      </div>
+                      <button
+                        type="submit"
+                        class="btn btn-gradient-primary me-2"
+                      >
+                        Submit
+                      </button>
+                      <button class="btn btn-light">Cancel</button>
+                    </form>
                   </div>
                 </div>
-
-                <!-- Category Description -->
-                <div class="form-outline mb-3">
-                  <label class="form-label" for="cate_description"
-                    >Category Description</label
-                  >
-                  <input
-                    type="text"
-                    id="cate_description"
-                    name="cate_description"
-                    class="form-control form-control-lg"
-                  />
-                  <div id="descError" class="text-danger" style="display: none">
-                    Category Description Cannot Empty.
-                  </div>
-                </div>
-
-                <!-- Image Upload -->
-                <div
-                  style="padding-left: 20px"
-                  class="form-outline flex-fill mb-0"
-                >
-                  <label class="form-label">Image Upload</label><br />
-                  <input type="file" name="file" id="file" />
-                  <div id="fileError" class="text-danger" style="display: none">
-                    Please upload a valid image file (JPEG, PNG, GIF).
-                  </div>
-                </div>
-
-                <div class="text-center text-lg-start mt-4 pt-2">
-                  <button
-                    type="submit"
-                    class="btn btn-primary btn-lg"
-                    style="padding-left: 2.5rem; padding-right: 2.5rem"
-                  >
-                    Add
-                  </button>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
+          <!-- content-wrapper ends -->
+          <footer class="footer">
+            <div
+              class="d-sm-flex justify-content-center justify-content-sm-between"
+            >
+              <span
+                class="text-muted text-center text-sm-left d-block d-sm-inline-block"
+                >Copyright © 2023
+                <a href="https://www.bootstrapdash.com/" target="_blank"
+                  >BootstrapDash</a
+                >. All rights reserved.</span
+              >
+              <span
+                class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"
+                >Hand-crafted & made with
+                <i class="mdi mdi-heart text-danger"></i
+              ></span>
+            </div>
+          </footer>
         </div>
       </div>
-    </section>
-
-    <!-- Footer-->
-    <footer class="py-3 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">
-          Copyright &copy; Your Website 2025
-        </p>
-      </div>
-    </footer>
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- ADD CATEGORY -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/chart.umd.js"></script>
+    <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/todolist.js"></script>
+    <script src="assets/js/jquery.cookie.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+     <!-- Add category  -->
     <script>
       document
         .getElementById("addCategory")
         .addEventListener("submit", async function (e) {
           e.preventDefault(); // Prevent default form submission
-    
+
           // Clear previous error messages
           document.getElementById("nameError").style.display = "none";
           document.getElementById("descError").style.display = "none";
           document.getElementById("fileError").style.display = "none";
-    
+
           // Get form data
           const categoryName = document.getElementById("cate_name").value;
-          const categoryDescription = document.getElementById("cate_description").value;
+          const categoryDescription =
+            document.getElementById("cate_description").value;
           const categoryImage = document.getElementById("file").files[0];
           let valid = true;
-    
+
           // Category Name validation
           if (!categoryName.trim()) {
             document.getElementById("nameError").style.display = "block";
             valid = false;
           }
-    
+
           // Category Description validation
           if (!categoryDescription.trim()) {
             document.getElementById("descError").style.display = "block";
             valid = false;
           }
-    
+
           // Image validation
           if (!categoryImage) {
             document.getElementById("fileError").style.display = "block";
@@ -165,18 +281,18 @@
               valid = false;
             }
           }
-    
+
           if (!valid) return;
-    
+
           // Form data preparation
           const formData = new FormData();
           formData.append("name", categoryName);
           formData.append("description", categoryDescription);
           formData.append("file", categoryImage);
-    
+
           // Fetch token from localStorage
           const token = localStorage.getItem("authToken");
-    
+
           try {
             // Perform the fetch API request
             const response = await fetch("/insert-category", {
@@ -186,9 +302,9 @@
               },
               body: formData,
             });
-    
+
             const data = await response.json();
-    
+
             if (data.status === 200) {
               alert("Category added successfully!");
               window.location.href = "/adminCategory.html";
@@ -201,6 +317,5 @@
           }
         });
     </script>
-        
   </body>
 </html>
